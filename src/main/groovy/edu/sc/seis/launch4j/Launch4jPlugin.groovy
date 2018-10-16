@@ -26,6 +26,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.internal.file.FileOperations
+import org.gradle.internal.component.local.model.LocalFileDependencyMetadata
 import org.gradle.internal.os.OperatingSystem
 
 import javax.inject.Inject
@@ -88,7 +89,14 @@ class Launch4jPlugin implements Plugin<Project> {
             project.logger.debug("Adding the jcenter repository to retrieve the $LAUNCH4J_PLUGIN_NAME files.")
             project.repositories.jcenter()
         }
-        def l4jArtifact = "net.sf.launch4j:launch4j:${ARTIFACT_VERSION}"
+
+        project.repositories {
+            project.repositories.flatDir(dirs: 'launch4j')
+        }
+
+//         def l4jArtifact = "net.sf.launch4j:launch4j:${ARTIFACT_VERSION}"
+        def l4jArtifact = "launch4j:${ARTIFACT_VERSION}"
+
         project.dependencies {
             addDependency(binaryConfig, "${l4jArtifact}:${workdir()}")
         }
