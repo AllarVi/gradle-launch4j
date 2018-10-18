@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (c) 2018 Sebastian Boegl
  *
@@ -44,6 +42,9 @@ task createClasspathManifest {
 }
 
 repositories {
+    flatDir {
+        dirs 'launch4j'
+    }
     jcenter()
 }
 
@@ -57,7 +58,7 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     compile 'com.thoughtworks.xstream:xstream:1.4.10'
-    compile ("net.sf.launch4j:launch4j:${ARTIFACT_VERSION}:core") {
+    compile("launch4j:launch4j-3.12-core") {
 //        exclude(group: 'dsol')
         exclude(group: 'org.apache.batik', module: '*')
         exclude(group: 'org.apache.ant', module: '*')
@@ -68,7 +69,7 @@ dependencies {
     }
 
     testCompile gradleTestKit()
-    testCompile ("org.spockframework:spock-core:${spock_version}") {
+    testCompile("org.spockframework:spock-core:${spock_version}") {
         exclude module: 'junit-dep'
         exclude module: 'groovy-all'
     }
